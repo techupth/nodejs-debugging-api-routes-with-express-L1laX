@@ -5,7 +5,7 @@ let todos = [...todosFromFile];
 
 const todoRouter = Router()
 
-todoRouter.get("/todos",(req,res)=>{
+todoRouter.get("/",(req,res)=>{
     return res.json({
         data: todos,
       });

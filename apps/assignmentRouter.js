@@ -1,20 +1,20 @@
 import { Router } from "express";
-import { assignments as assignmentsFromFile } from "../data/assignments.js";
+import { assignments as assignmentDatabase } from "../data/assignments.js";
 
-let assignments = [...assignmentsFromFile];
+let assignmentsData = [...assignmentDatabase];
 
 const assignmentRouter = Router();
 
 // start coding here
-assignmentRouter.get("/assignments", (req, res) => {
+assignmentRouter.get("/", (req, res) => {
   return res.json({
-    data: assignments,
+    data: assignmentsData,
   });
 });
 
-assignmentRouter.get("/assignments/:id", (req, res) => {
+assignmentRouter.get("/:id", (req, res) => {
   const assignmentId = +req.params.id;
-  const hasFound = assignments.find((assign) => assign.id === assignmentId);
+  const hasFound = assignmentsData.find((assign) => assign.id === assignmentId);
 
   if (!hasFound) {
     return res.status(404).json({
@@ -22,7 +22,9 @@ assignmentRouter.get("/assignments/:id", (req, res) => {
     });
   }
 
-  const assignment = assignments.filter((assign) => assign.id === assignmentId);
+  const assignment = assignmentsData.filter(
+    (assign) => assign.id === assignmentId
+  );
 
   return res.json({
     data: assignment[0],
